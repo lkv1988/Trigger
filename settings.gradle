@@ -1,0 +1,1 @@
+include ':trigger', ':trigger-test', ':sample'
