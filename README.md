@@ -22,6 +22,10 @@ There is a Android service component running in background named TriggerLoop, it
 Usage
 ---
 
+###Support Api Level
+
+Android ICS (API14)
+
 ###Include in your project
 
 //TODO
@@ -29,6 +33,7 @@ Usage
 ###Declare
 
 You should add these code in your application's `AndroidManifest.xml`, first is permissions:
+
 
 ```
 <!-- inner status controller: network controller will need it -->
@@ -41,6 +46,7 @@ You should add these code in your application's `AndroidManifest.xml`, first is 
 
 then components:
 
+
 ```
 <service android:name="com.github.airk.trigger.TriggerLoop" />
 <!-- as what I said in permission, if you don't need it, remove it -->
@@ -50,6 +56,7 @@ then components:
     </intent-filter>
 </receiver>
 ```
+
 
 ###Schedule a Job
 
@@ -98,7 +105,7 @@ After all these, while you sending YOUR_BROADCAST broadcast wherever you want, t
 
 ####About Job PERSIST
 
-If you want your job can be persist after reboot, you really need use PUBLIC and STATIC Action class and same modifier Condition.
+If you want your job can be persist after reboot, you really need use `PUBLIC and STATIC` Action class and same modifier Condition.
 
 ***Tips***
 
@@ -109,10 +116,30 @@ let your job do this, use the constructors which have `persistAfterReboot` param
 
 ###Last
 
-If you like this project, STAR it!
+If you like this project, `STAR` it!
 
 If your application is using this and already online, please let me know through E-mail.
 
 If you have any question, open an issue.
 
 If you have any good idea to improve this project or fixed some bugs, give me a Pull-request, I'm happy to build this project better with your help.
+
+
+License
+---
+
+```
+Copyright 2015 Kevin Liu
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

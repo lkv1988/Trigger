@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015 Kevin Liu
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.airk.trigger;
 
 import android.support.annotation.IntDef;
@@ -13,6 +29,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,12 +40,19 @@ import java.util.List;
  * The Job you want to schedule
  */
 public final class Job {
-    public static final int NETWORK_TYPE_NONE = 0;
-    public static final int NETWORK_TYPE_ANY = 1;
-    public static final int NETWORK_TYPE_UNMETERED = 2;
     static final String NETWORK_TYPE_KEY = "con_networktype";
     static final String CHARGING_KEY = "con_charging";
     static final String IDLE_DEVICE_KEY = "con_idle";
+
+    public static final int NETWORK_TYPE_NONE = 0;
+    public static final int NETWORK_TYPE_ANY = 1;
+    public static final int NETWORK_TYPE_UNMETERED = 2;
+
+    @IntDef({NETWORK_TYPE_NONE, NETWORK_TYPE_ANY, NETWORK_TYPE_UNMETERED})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface NetworkType {
+    }
+
     static final int NETWORK_TYPE_INVALID = -1;
     private static final String TAG = "Job";
     private static final int SECRET_CODE = 0x611;
@@ -237,10 +262,6 @@ public final class Job {
         if (!this.jobInfo.equals(other.jobInfo)) return false;
         if (this.canBePersist != other.canBePersist) return false;
         return true;
-    }
-
-    @IntDef({NETWORK_TYPE_NONE, NETWORK_TYPE_ANY, NETWORK_TYPE_UNMETERED})
-    public @interface NetworkType {
     }
 
     //for persist after reboot
