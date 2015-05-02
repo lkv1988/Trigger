@@ -28,8 +28,21 @@ Android ICS (API14)
 
 ###Include in your project
 
-//TODO
+- Maven
+    
+    ```
+    <dependency>
+        <groupId>com.github.airk000</groupId>
+        <artifactId>trigger</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    ```
+- Gradle
 
+    ```
+    compile 'com.github.airk000:trigger:1.0.0'
+    ```
+    
 ###Declare
 
 You should add these code in your application's `AndroidManifest.xml`, first is permissions:
