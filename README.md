@@ -15,6 +15,10 @@ Good question! In my opinion and according to the test result, it do CAN, and I 
 - support job's deadline, last chance to be triggered
 - allow your job's action runs in background or main thread, follow your configuration
 
+While all your job's conditions are satisfied, your job's action just like a Duang~~~ Happened!
+
+![duang](http://ww2.sinaimg.cn/large/e47e16abjw1epo63zm4u6g209205d7bs.gif)
+
 ###How does Trigger work?
 
 There is a Android service component running in background named TriggerLoop, its duty is managing all jobs you scheduled, updating their status, checking them if they can be triggered, handling remove request from user, and even recovering them from service restarting or device rebooting. Do not forget declare it in your AndroidManifest.xml, otherwise Trigger can not start at all.
