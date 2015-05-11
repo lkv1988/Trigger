@@ -1,7 +1,9 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Trigger-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1761)
+
 What is Trigger
 ===
 
-Do you know JobScheduler which is new added in Android Lollipop version? It is a job scheduler as its name. Define your own job, which need some conditions to happen, suit it up with such as device charging or unmeterred network(just like wifi, what else we have?) or device idle status, then throw it the the JobScheduler framework, your job will happen while all these conditions are satisfied. Awesome feature, isn't it? But a pity is it's only available above API 21. So I try my best to copy it to API 14 and named it Trigger.
+Do you know JobScheduler which is new added in Android Lollipop version? It is a job scheduler as its name. Define your own job, which need some conditions to happen, suit it up with such as device charging or unmeterred network(just like wifi, what else we have?) or device idle status, then throw it to the JobScheduler framework, your job will happen while all these conditions are satisfied. Awesome feature, isn't it? But a pity is it's only available above API 21. So I try my best to copy it to API 14 and named it Trigger.
 
 ###Can Trigger do what JobScheduler do?
 
