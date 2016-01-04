@@ -31,7 +31,7 @@ import android.util.Log;
  */
 final class IdleStatusController implements StatusController {
     static final String TAG = "IdleStatusController";
-    static final boolean DEBUG = true; //TODO for debug
+    static final boolean DEBUG = Log.isLoggable(TAG, Log.VERBOSE);
     static final String ACTION_TRIGGER_IDLE = "com.github.airk.trigger.controller.idlestatus";
 
     // Policy: we decide that we're "idle" if the device has been unused /

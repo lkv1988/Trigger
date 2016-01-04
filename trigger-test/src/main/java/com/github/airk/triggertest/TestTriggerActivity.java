@@ -436,8 +436,8 @@ public class TestTriggerActivity extends TestBaseActivity {
         }
     }
 
-    //need trigger inner debug broadcast enable
-//    @Test
+//    need trigger inner debug broadcast enable
+    @Test
     void testDeviceOffAndOn() {
         Job job1 = new Job(true, new PersistAct())
                 .withExtra(new PersistCond1());
@@ -463,7 +463,6 @@ public class TestTriggerActivity extends TestBaseActivity {
         }
 
         //fake device off
-        trigger.stopAndReset();
         sendBroadcastDelay(DEBUG_ON_BROADCAST);
         SystemClock.sleep(2000);
 

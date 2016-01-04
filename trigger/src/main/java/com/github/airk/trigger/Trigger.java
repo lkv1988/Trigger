@@ -20,6 +20,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,9 +29,10 @@ import java.util.Map;
  * Trigger. A window let you schedule, cancel jobs.
  */
 public class Trigger {
+    private static final String TAG = "Trigger";
     //just for test
     static final String DEBUG_DEVICE_ON_B = "trigger.testcase.deviceon";
-    static final boolean DEBUG = true;
+    static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     private static Trigger sInstance;
     private TriggerLoop.TriggerBinder triggerBinder;
     private Context appContext;
