@@ -436,7 +436,8 @@ public class TestTriggerActivity extends TestBaseActivity {
         }
     }
 
-    @Test
+    //need trigger inner debug broadcast enable
+//    @Test
     void testDeviceOffAndOn() {
         Job job1 = new Job(true, new PersistAct())
                 .withExtra(new PersistCond1());
