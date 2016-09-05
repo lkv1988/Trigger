@@ -21,7 +21,7 @@ import android.content.Context;
 /**
  * Compare to {@link Action}, ContextAction bring a context here. The context come from {@link TriggerLoop}
  */
-public abstract class ContextAction implements Act {
+public abstract class ContextAction extends ActBase {
     public ContextAction() {
     }
 

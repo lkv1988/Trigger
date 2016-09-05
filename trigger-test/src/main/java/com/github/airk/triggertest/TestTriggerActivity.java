@@ -565,7 +565,8 @@ public class TestTriggerActivity extends TestBaseActivity {
         }
 
         try {
-            trigger.schedule(null);
+            Job[] jobs = null;
+            trigger.schedule(jobs);
             assertEquals(1, 2);
         } catch (NullPointerException ignore) {
             assertEquals(1, 1);
@@ -573,7 +574,7 @@ public class TestTriggerActivity extends TestBaseActivity {
     }
 
     private boolean isMainThread() {
-        return Looper.getMainLooper().getThread() == Thread.currentThread();
+        return Looper.getMainLooper() == Looper.myLooper();
     }
 
     public static class PersistAct extends Action {

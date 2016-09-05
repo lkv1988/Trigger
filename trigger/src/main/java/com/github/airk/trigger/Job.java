@@ -59,7 +59,7 @@ public final class Job {
     HashMap<String, Boolean> condSatisfied = new HashMap<>();
     JobInfo jobInfo = new JobInfo();
     List<Condition> exConds = new ArrayList<>();
-    Act action;
+    ActBase action;
     Object deadLineObj = null; //Store deadline Object, list of PendingIntent(after >5min) or Runnable(otherwise)
     boolean canBePersist = true;
 
@@ -132,12 +132,13 @@ public final class Job {
         return job;
     }
 
-    String generateIdentity() {
+    private String generateIdentity() {
         String actName = (TextUtils.isEmpty(action.getClass().getSimpleName()) ? "Anonymous" : action.getClass().getSimpleName());
-        return String.valueOf(SECRET_CODE) + "_" + System.identityHashCode(this) + "_" + actName;
+        return String.valueOf(SECRET_CODE) + "_" + (TextUtils.isEmpty(action.specialId()) ?
+                System.identityHashCode(this) : action.specialId()) + "_" + actName;
     }
 
-    private void setAction(Act action) {
+    private void setAction(ActBase action) {
         this.action = action;
         if (action.getClass().getCanonicalName() == null) {
             canBePersist = false;
@@ -280,7 +281,6 @@ public final class Job {
         boolean repeat = false;
         long delay = -1L;
         long deadline = -1L;
-        long happen = -1L;
         @SerializedName("conds")
         List<String> conditions = new ArrayList<>();
         @SerializedName("actname")
@@ -301,7 +301,6 @@ public final class Job {
         public void writeToFile(File dir) throws IOException {
             File file = new File(dir, identity + ".job");
             //do this if this method is only called because of device shutdown
-            happen = -1L;
             String content = new Gson().toJson(this);
             Writer writer = new FileWriter(file);
             writer.write(content);

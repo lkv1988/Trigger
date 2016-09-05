@@ -20,7 +20,7 @@ package com.github.airk.trigger;
  * Normal action without {@link android.content.Context}, if you want this,
  * you should see {@link ContextAction}
  */
-public abstract class Action implements Act {
+public abstract class Action extends ActBase {
     public Action() {
     }
 

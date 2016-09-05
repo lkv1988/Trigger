@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     final String CUSTOM_COND1 = "trigger.sample.custom_1";
     final String CUSTOM_COND2 = "trigger.sample.custom_2";
     final String CUSTOM_COND3 = "trigger.sample.custom_3";
-    final String CUSTOM_COND4 = "trigger.sample.custom_4";
 
     Trigger trigger;
 
@@ -95,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class PersistAfterRebootWithChargingAction extends ContextAction {
+        @Override
+        public String specialId() {
+            return "101010";
+        }
 
         @Override
         protected void act(Context context) {

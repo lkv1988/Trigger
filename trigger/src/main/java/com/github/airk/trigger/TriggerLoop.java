@@ -63,6 +63,7 @@ public final class TriggerLoop extends Service {
 
     private ConcurrentHashMap<String, Job> jobSet;
     private ConcurrentHashMap<String, BroadcastReceiver> receivers;
+    private ConcurrentHashMap<String, Long> jobHappens;
     private TriggerBinder binder;
     private CheckHandler checker;
     private ExecutorService executor;
@@ -103,6 +104,7 @@ public final class TriggerLoop extends Service {
         super.onCreate();
         jobSet = new ConcurrentHashMap<>();
         receivers = new ConcurrentHashMap<>();
+        jobHappens = new ConcurrentHashMap<>();
         binder = new TriggerBinder();
         executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE, new TriggerWorkerFactory());
         mainHandler = new Handler(Looper.getMainLooper());
@@ -205,6 +207,8 @@ public final class TriggerLoop extends Service {
 
     void addJob(Job job, boolean mayTrigger) {
         if (job == null)
+            return;
+        if (jobSet.containsKey(job.jobInfo.identity))
             return;
         //avoid duplicate job
         if (job.jobInfo.persistAfterReboot) {
@@ -502,7 +506,8 @@ public final class TriggerLoop extends Service {
             long now = System.currentTimeMillis();
             for (Map.Entry<String, Job> entry : jobSet.entrySet()) {
                 final Job job = entry.getValue();
-                if (job.jobInfo.happen == -1L && (job.jobInfo.deadline > 0 && job.jobInfo.deadline <= now)) { //not happen yet
+                long happen = jobHappens.get(job.jobInfo.identity) == null ? -1 : jobHappens.get(job.jobInfo.identity);
+                if (happen == -1L && (job.jobInfo.deadline > 0 && job.jobInfo.deadline <= now)) { //not happen yet
                     trigger(job);
                 }
             }
@@ -527,7 +532,7 @@ public final class TriggerLoop extends Service {
                 if (info != null) {
                     Job job = Job.createJobFromPersistInfo(info);
                     if (job != null) {
-                        job.jobInfo.happen = -1L;
+                        jobHappens.remove(job.jobInfo.identity);
                         addJob(job, true);
                     }
                 } else {
@@ -582,8 +587,10 @@ public final class TriggerLoop extends Service {
 
         void trigger(final Job job) {
             Log.d(TAG, "trigger() " + job.jobInfo.identity);
-            if (job.jobInfo.happen != -1 && job.jobInfo.delay != -1) {
-                if (SystemClock.elapsedRealtime() - job.jobInfo.happen < job.jobInfo.delay) {
+            long happen = jobHappens.get(job.jobInfo.identity) == null ? -1 : jobHappens.get(job.jobInfo.identity);
+            if (happen != -1 && job.jobInfo.delay != -1) {
+                if (SystemClock.elapsedRealtime() - happen < job.jobInfo.delay) {
+                    Log.d(TAG, "trigger: Delay hit, last is " + happen);
                     return;
                 }
             }
@@ -603,7 +610,7 @@ public final class TriggerLoop extends Service {
             } else {
                 executor.submit(r);
             }
-            job.jobInfo.happen = SystemClock.elapsedRealtime();
+            jobHappens.put(job.jobInfo.identity, SystemClock.elapsedRealtime());
             removeOne(job.jobInfo.identity);
             job.resetConds();
             if (job.jobInfo.repeat) {
