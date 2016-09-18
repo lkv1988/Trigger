@@ -40,13 +40,13 @@ Android ICS (API14)
     <dependency>
         <groupId>com.github.airk000</groupId>
         <artifactId>trigger</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </dependency>
     ```
 - Gradle
 
     ```
-    compile 'com.github.airk000:trigger:1.0.0'
+    compile 'com.github.airk000:trigger:1.1.0'
     ```
     
 ###Declare
