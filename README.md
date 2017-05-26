@@ -5,11 +5,11 @@ What is Trigger
 
 Do you know JobScheduler which is new added in Android Lollipop version? It is a job scheduler as its name. Define your own job, which need some conditions to happen, suit it up with such as device charging or unmeterred network(just like wifi, what else we have?) or device idle status, then throw it to the JobScheduler framework, your job will happen while all these conditions are satisfied. Awesome feature, isn't it? But a pity is it's only available above API 21. So I try my best to copy it to API 14 and named it Trigger.
 
-###Can Trigger do what JobScheduler do?
+### Can Trigger do what JobScheduler do?
 
 Good question! In my opinion and according to the test result, it do CAN, and I think Trigger can do more.
 
-###Features
+### Features
 
 - support multi conditions combination with one job
 - inner conditions: device charging, unmeterred network and idle status
@@ -21,18 +21,18 @@ While all your job's conditions are satisfied, your job's action just like a Dua
 
 ![duang](http://ww2.sinaimg.cn/large/e47e16abjw1epo63zm4u6g209205d7bs.gif)
 
-###How does Trigger work?
+### How does Trigger work?
 
 There is a Android service component running in background named TriggerLoop, its duty is managing all jobs you scheduled, updating their status, checking them if they can be triggered, handling remove request from user, and even recovering them from service restarting or device rebooting. Do not forget declare it in your AndroidManifest.xml, otherwise Trigger can not start at all.
 
 Usage
 ---
 
-###Support Api Level
+### Support Api Level
 
 Android ICS (API14)
 
-###Include in your project
+### Include in your project
 
 - Maven
     
@@ -49,7 +49,7 @@ Android ICS (API14)
     compile 'com.github.airk000:trigger:1.1.1'
     ```
     
-###Declare
+### Declare
 
 You should add these code in your application's `AndroidManifest.xml`, first is permissions:
 
@@ -77,7 +77,7 @@ then components:
 ```
 
 
-###Schedule a Job
+### Schedule a Job
 
 All operations should through Trigger instance, you can get it by using following code:
 
@@ -105,7 +105,7 @@ trigger.schedule(job);
 
 After all these, while you sending YOUR_BROADCAST broadcast wherever you want, the job's action(//do something... there) will be triggered in background thread (want main thread? see later).
 
-####More configurations
+#### More configurations
 
 - multi constructors can give you chances to give your job a tag, or mark it want be persist
 - different from Action class, ContextAction give you a chance to do something with a context (it is the TriggerLoop)
@@ -114,7 +114,7 @@ After all these, while you sending YOUR_BROADCAST broadcast wherever you want, t
 - `deadline` setup the deadline of the job, it's in RTC
 - `attachOn` MAIN and BACKGROUND, MAIN means the job's action will be triggered in main thread, default is BACKGROUND
 
-####Inner conditions
+#### Inner conditions
 
 - `networkType` limit your job can be triggered in which network environment
 - `needCharging` limit your job can only be triggered while device is in charing status
@@ -122,7 +122,7 @@ After all these, while you sending YOUR_BROADCAST broadcast wherever you want, t
 
 >PS: How to define the idle status? After your device drop into daydreaming or just screen off 71 minutes later.
 
-####About Job PERSIST
+#### About Job PERSIST
 
 If you want your job can be persist after reboot, you really need use `PUBLIC and STATIC` Action class and same modifier Condition.
 
@@ -133,7 +133,7 @@ killed by some reasons, jobs here can be put into the waiting list also, and of 
 jobs can be saved here. `job_persist` keeps the jobs can be recovered after device rebooting, if you wan
 let your job do this, use the constructors which have `persistAfterReboot` parameter to construct your job instance.
 
-###Last
+### Last
 
 If you like this project, `STAR` it!
 
