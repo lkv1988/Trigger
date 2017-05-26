@@ -46,7 +46,7 @@ Android ICS (API14)
 - Gradle
 
     ```
-    compile 'com.github.airk000:trigger:1.1.0'
+    compile 'com.github.airk000:trigger:1.1.1'
     ```
     
 ###Declare
